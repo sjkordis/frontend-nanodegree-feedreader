@@ -11,7 +11,6 @@ The tests are located in the [feedreader.js](./jasmine/spec/feedreader.js) file.
 | The Menu      | Ensures the menu element is hidden by default |
 | Initial Entries | Ensures when the `loadFeed` function is called and completes its work, there is at least a single `.entry` element within the `.feed` container |
 | New Feed Selection | Ensures when a new feed is loaded by the `loadFeed` function that the content actually changes |
-| Initial Feed Displayed | Resets the page to display the initial Udacity feed after the tests have all completed |
 
 ## To run the application
 

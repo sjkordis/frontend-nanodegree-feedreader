@@ -30,9 +30,7 @@ $(function() {
 				var url = feed.url;
 				expect(url).toBeDefined();
 				expect(url).not.toBeNull();
-				if( typeof url !== 'undefined' && url !== null ) {
-					expect(url.length).toBeGreaterThan(0);  // check for empty string
-				}
+				expect(url.length).toBeGreaterThan(0);  // check for empty string
 			});
 		});
 
@@ -45,9 +43,7 @@ $(function() {
 				var name = feed.name;
 				expect(name).toBeDefined();
 				expect(name).not.toBeNull();
-				if( typeof name !== 'undefined' && name !== null ) {
-					expect(name.length).toBeGreaterThan(0);  // check for empty string
-				}
+				expect(name.length).toBeGreaterThan(0);  // check for empty string
 			});
 		});
 
@@ -61,7 +57,7 @@ $(function() {
 		 * To hide the menu, the CSS translates it 12em to the left
 		 */
 		it('is hidden by default', function() {
-			expect($('body').hasClass('menu-hidden')).toBe(true);
+			expect($('body').hasClass('menu-hidden')).toBeTruthy();
 		});
 
 		/* Test that ensures the menu changes visibility when the
@@ -70,9 +66,9 @@ $(function() {
 		 it('appears when the hamburger icon is clicked ' +
 			'and disappears when the icon is clicked again', function() {
 			$('.menu-icon-link').trigger('click');  // Show the menu
-			expect($('body').hasClass('menu-hidden')).toBe(false);
+			expect($('body').hasClass('menu-hidden')).toBeFalsy();
 			$('.menu-icon-link').trigger('click');  // Hide the menu
-			expect($('body').hasClass('menu-hidden')).toBe(true);
+			expect($('body').hasClass('menu-hidden')).toBeTruthy();
 		 });
 	});
 
@@ -85,15 +81,12 @@ $(function() {
 		 */
 
 		beforeEach(function(done) {
-			loadFeed(0,function() {
-				done();
-			});
+			loadFeed(0, done);
 		});
 
 		it('has at least one .entry element within the .feed container',
-			function(done) {
-			expect($.contains($('.feed')[0], $('.entry')[0])).toBe(true);
-			done();
+			function() {
+			expect($.contains($('.feed')[0], $('.entry')[0])).toBeTruthy();
 		});
 	});
 
@@ -108,39 +101,22 @@ $(function() {
 
 		var oldContent, newContent = null;
 
-		beforeEach(function(done) {
+
+		beforeAll(function(done) {
 			loadFeed(0,function() {
 				oldContent = $('.feed')[0].textContent;
-			});
-			loadFeed(1,function() {
-				newContent = $('.feed')[0].textContent;
-				done();
+				loadFeed(1,function() {
+					newContent = $('.feed')[0].textContent;
+					done();
+				});
 			});
 		});
 
 		it('content of the feed changes when a new feed is loaded',
 			function(done) {
+				console.log('Old content is ' + oldContent);
+				console.log('New content is ' + newContent);
 				expect(newContent).not.toBe(oldContent);
-				done();
-		});
-	});
-
-	/* This test suite simply reloads the initial feed
-	 */
-	describe('Initial Feed Displayed', function() {
-
-		/* Display the initial feed after all tests are completed
-		 */
-
-		beforeEach(function(done) {
-			loadFeed(0,function() {
-				done();
-			});
-		});
-
-		it('indicates that tests are completed',
-			function(done) {
-				expect(true).toBe(true);
 				done();
 		});
 	});
